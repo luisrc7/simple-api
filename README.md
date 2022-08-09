@@ -4,6 +4,8 @@ The Simple API is a very simple Koa based API with a single endpoint `/` that re
 
 You can run the task locally by running `yarn start`
 
+Yan can test the API with `curl locahost:3000`
+
 We would you like to deploy this API to AWS using which ever service you would like (This should be achieveable using services with a free tier)
 
 We would like changes to the application to be deployed automatically on merge to master
