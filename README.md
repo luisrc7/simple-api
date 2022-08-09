@@ -10,7 +10,7 @@ API Deployment Task
 
 * The API should be publically accessible
 
-* We would like changes to the application to be deployed automatically on merge to master
+* We would like changes to the application to be deployed automatically on merge to the master branch
 
 * We would like to have a simple way of inspecting the application logs
 
