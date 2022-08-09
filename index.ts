@@ -23,4 +23,5 @@ app.use(router.routes()).use(router.allowedMethods());
 
 app.listen(3000, () => {
   console.log("Koa started");
+  console.log("Listening on port 3000");
 });
