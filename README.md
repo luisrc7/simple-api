@@ -1,4 +1,4 @@
-# simple-api
+Simple API Task
 
 The Simple API is a very simple Koa based API with a single endpoint `/` that returns `hello world` and logs the user-agent.
 
