@@ -1,4 +1,4 @@
-Simple API Task
+Simple API Deployment Task
 
 This project is a simple Koa based API with a single endpoint `/` that returns `hello world` and logs the user-agent.
 
