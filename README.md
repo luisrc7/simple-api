@@ -6,7 +6,7 @@ API Deployment Task
 
 * Yan can test the API with `curl locahost:3000`
 
-* We would you like to deploy this API to AWS using which ever service you would like (This should be achieveable using services with a free tier)
+* We would you like to deploy this API to AWS using which ever services you would like (This should be achieveable using services with a free tier)
 
 * The API should be publically accessible
 
