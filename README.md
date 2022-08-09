@@ -2,6 +2,8 @@ Simple API Task
 
 The Simple API is a very simple Koa based API with a single endpoint `/` that returns `hello world` and logs the user-agent.
 
+You can run the task locally by running `yarn dev`
+
 We would you like to deploy this API to AWS using which ever service you would like (provided the services has a free tier)
 
 We would like changes to the application to be deployed automatically on merge to master
