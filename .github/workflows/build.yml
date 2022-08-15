@@ -41,7 +41,7 @@ jobs:
         with:
           name: lambda-code
 
-      - run: la -als; ls -als src/dist
+      - run: ls -als; ls -als src/dist
 
       - name: Terraform Init
         id: init
