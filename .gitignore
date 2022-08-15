@@ -1,0 +1,10 @@
+# Ignore local files.
+.terraform/
+.terraform*
+*.tfplan
+*.tfvars
+*.tfstate
+*.tfstate*
+.DS_Store
+node_modules/
+src/dist/
