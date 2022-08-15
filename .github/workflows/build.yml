@@ -18,9 +18,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: cd src
       - name: Install dependencies
-        run: npm ci
+        run: ls -als; npm install
       - name: Build artefact
-        run: npm run build
+        run: pwd; npm run build
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v3
         with:
