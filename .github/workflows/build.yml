@@ -16,10 +16,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: cd src
       - name: Install dependencies
+        working-directory: ./src
         run: ls -als; npm install
       - name: Build artefact
+        working-directory: ./src
         run: pwd; npm run build
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v3
@@ -40,10 +41,10 @@ jobs:
       - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.2.7
-      - run: cd iac
 
       - name: Terraform Init
         id: init
+        working-directory: ./iac
         run: terraform init
         env:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -51,6 +52,7 @@ jobs:
 
       - name: Terraform Validate
         id: validate
+        working-directory: ./iac
         run: terraform validate
         env: 
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -58,6 +60,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
+        working-directory: ./iac
         run: terraform plan
         continue-on-error: true
         env:
@@ -103,6 +106,7 @@ jobs:
 
       - name: Terraform Apply
         id: apply
+        working-directory: ./iac
         run: terraform apply
         env:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
