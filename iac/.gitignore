@@ -1,0 +1,5 @@
+# Ignore local files.
+.terraform/
+.terraform*
+.DS_Store
+node_modules/
