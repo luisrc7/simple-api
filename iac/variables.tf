@@ -1,3 +1,3 @@
-var env {
+variable env {
     default = "test"
 }

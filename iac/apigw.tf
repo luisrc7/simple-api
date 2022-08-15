@@ -44,7 +44,7 @@ resource "aws_api_gateway_integration" "lambda_root" {
 }
 
 resource "aws_api_gateway_stage" "default" {
-  deployment_id = aws_api_gateway_deployment.restapi.id
+  deployment_id = aws_api_gateway_deployment.apideployment.id
   rest_api_id   = aws_api_gateway_rest_api.restapi.id
   stage_name    = "default"
 }

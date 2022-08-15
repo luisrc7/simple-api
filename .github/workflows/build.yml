@@ -40,6 +40,7 @@ jobs:
       - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.2.7
+      - run: cd iac
       - run: terraform init
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}

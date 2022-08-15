@@ -8,3 +8,11 @@ provider "aws" {
     }
   }
 }
+
+terraform {
+  backend "s3" {
+    bucket = "tf-penfold-test-state"
+    key    = "api-lambda/terraform.tfstate"
+    region = "eu-west-1"
+  }
+}
