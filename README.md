@@ -17,3 +17,6 @@ API Deployment Task
 * You should fork this repo to build your solution
 
 * We will go through your solution in a follow-up call
+
+## Implemented Architecture
+![Architecture Design](./arhitecture.png?raw=true "Architecture Design")
