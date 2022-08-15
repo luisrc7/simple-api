@@ -7,3 +7,4 @@
 *.tfstate*
 .DS_Store
 node_modules/
+src/dist/
