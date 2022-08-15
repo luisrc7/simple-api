@@ -31,10 +31,6 @@ jobs:
   deploy:
     needs: [build]
     runs-on: ubuntu-latest
-    defaults: 
-      with:
-        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/download-artifact@v3
@@ -49,15 +45,24 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Terraform Validate
         id: validate
         run: terraform validate
+        with: 
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Terraform Plan
         id: plan
         run: terraform plan
         continue-on-error: true
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - uses: actions/github-script@v6
         if: github.event_name == 'pull_request'
@@ -99,3 +104,6 @@ jobs:
       - name: Terraform Apply
         id: apply
         run: terraform apply
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
