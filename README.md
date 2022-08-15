@@ -19,4 +19,4 @@ API Deployment Task
 * We will go through your solution in a follow-up call
 
 ## Implemented Architecture
-![Architecture Design](./arhitecture.png?raw=true "Architecture Design")
+![Architecture Design](./architecture.png?raw=true "Architecture Design")
