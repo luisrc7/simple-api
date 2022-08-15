@@ -67,5 +67,4 @@ resource "aws_api_gateway_deployment" "apideployment" {
   ]
 
   rest_api_id = aws_api_gateway_rest_api.restapi.id
-  stage_name  = "default"
 }
