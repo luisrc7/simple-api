@@ -2,7 +2,7 @@ name: Build and Test
 
 on:
   push:
-    branches: [ master ]
+    branches:
 
 jobs:
   build:
@@ -16,16 +16,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: cd src
       - name: Install dependencies
-        run: npm ci
+        working-directory: ./src
+        run: ls -als; npm install
       - name: Build artefact
-        run: npm run build
+        working-directory: ./src
+        run: pwd; npm run build
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v3
         with:
           name: lambda-code
-          path: src/dist/index.zip
+          path: ./src/dist/index.zip
           retention-days: 15
 
   deploy:
@@ -33,36 +34,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
-        with:
-          name: lambda-code
-          path: src/dist/index.zip
       - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.2.7
-      - run: cd iac
+
+      - run: mkdir src/dist
+      - uses: actions/download-artifact@v3
+        with:
+          name: lambda-code
+          path: ./src/dist
 
       - name: Terraform Init
         id: init
+        working-directory: ./iac
         run: terraform init
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Terraform Validate
         id: validate
+        working-directory: ./iac
         run: terraform validate
-        with: 
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        env: 
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Terraform Plan
         id: plan
+        working-directory: ./iac
         run: terraform plan
         continue-on-error: true
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - uses: actions/github-script@v6
         if: github.event_name == 'pull_request'
@@ -103,7 +108,9 @@ jobs:
 
       - name: Terraform Apply
         id: apply
+        working-directory: ./iac
+        if: github.ref == 'refs/heads/"master"' && github.event_name == 'push'
         run: terraform apply
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
