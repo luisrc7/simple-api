@@ -2,7 +2,7 @@ name: Build and Test
 
 on:
   push:
-    branches: [ master ]
+    branches:
 
 jobs:
   build:
@@ -45,7 +45,7 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
-        with:
+        env:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
@@ -60,7 +60,7 @@ jobs:
         id: plan
         run: terraform plan
         continue-on-error: true
-        with:
+        env:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
@@ -104,6 +104,6 @@ jobs:
       - name: Terraform Apply
         id: apply
         run: terraform apply
-        with:
+        env:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
